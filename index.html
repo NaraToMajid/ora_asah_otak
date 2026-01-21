@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Game Asah Otak</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-content">
+            <!-- Header dengan Help Button -->
+            <div class="header">
+                <div class="title-section">
+                    <h1>Asah Otak</h1>
+                    <div class="subtitle">Tebak jawaban dari pertanyaan</div>
+                </div>
+                
+                <button class="header-help" id="header-help-btn">
+                    <span class="help-icon">💡</span>
+                    <span class="help-count" id="help-count">5</span>
+                </button>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-label">SKOR</div>
+                    <div class="stat-value" id="score">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">BENAR</div>
+                    <div class="stat-value" id="correct">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">SALAH</div>
+                    <div class="stat-value" id="wrong">0</div>
+                </div>
+            </div>
+
+            <!-- Question -->
+            <div class="question-box">
+                <div id="soal">
+                    <div class="loading">
+                        <div class="loading-text">Memuat...</div>
+                        <div class="loading-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Letter Hints -->
+            <div class="hints-container">
+                <div class="letters-grid" id="letters-grid">
+                    <!-- Huruf akan diisi oleh JavaScript -->
+                </div>
+            </div>
+
+            <!-- Answer Input -->
+            <div class="answer-container">
+                <input type="text" id="jawaban" placeholder="Ketik jawaban..." maxlength="50" autocomplete="off" autofocus>
+            </div>
+
+            <!-- Result Panel -->
+            <div class="result-panel" id="result-panel">
+                <div class="result-title" id="result-title">⏳ MENUNGGU</div>
+                <div class="result-message" id="result-message">Submit jawaban untuk melihat hasil</div>
+                <div class="result-answer" id="result-correct-answer"></div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="buttons-container">
+                <button class="btn btn-primary" id="submit-btn">
+                    Submit
+                </button>
+                <button class="btn btn-secondary" id="new-btn">
+                    Baru
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
