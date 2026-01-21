@@ -1,0 +1,745 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    background-color: #000;
+    color: #000;
+    touch-action: manipulation;
+}
+
+body {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0;
+}
+
+.game-container {
+    flex: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+}
+
+/* Efek background kertas bergaris */
+.game-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(90deg, transparent 99%, rgba(0,0,0,0.03) 99%),
+        linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size: 40px 30px;
+    background-position: 20px 20px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.game-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+}
+
+/* === HEADER === */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: #fff;
+    border-radius: 12px;
+    border: 2px solid #000;
+    min-height: 60px;
+    flex-shrink: 0;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #000;
+}
+
+.title-section {
+    flex: 1;
+}
+
+h1 {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: #000;
+    line-height: 1.1;
+}
+
+.subtitle {
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+    letter-spacing: 0.2px;
+    margin-top: 2px;
+}
+
+.header-help {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #000;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 10px;
+    min-width: 90px;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    border: 2px solid #000;
+    font-family: 'Poppins';
+    font-weight: 800;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.3);
+}
+
+.header-help:hover:not(:disabled) {
+    background: #333;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.header-help:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.3);
+}
+
+.help-icon {
+    font-size: 16px;
+}
+
+.help-count {
+    font-size: 16px;
+    font-weight: 900;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* === STATS BAR === */
+.stats-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    flex-shrink: 0;
+    min-height: 60px;
+}
+
+.stat-item {
+    background: #fff;
+    color: #000;
+    padding: 10px 8px;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #000;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+}
+
+.stat-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #666;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: 900;
+    color: #000;
+    line-height: 1;
+}
+
+/* === QUESTION BOX === */
+.question-box {
+    background-color: #fff;
+    border: 3px solid #000;
+    border-radius: 12px;
+    padding: 14px 12px;
+    position: relative;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+    margin: 2px 0;
+}
+
+.question-box::before {
+    content: "SOAL";
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    background: #fff;
+    color: #000;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    border-radius: 6px;
+    border: 2px solid #000;
+}
+
+#soal {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+    padding: 4px;
+    color: #333;
+    width: 100%;
+}
+
+.question-text {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+    padding: 4px;
+    text-align: center;
+    color: #222;
+    width: 100%;
+}
+
+/* === LETTER HINTS === */
+.hints-container {
+    background-color: #fff;
+    border: 3px solid #000;
+    border-radius: 12px;
+    padding: 14px 12px;
+    position: relative;
+    flex-shrink: 0;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+    margin: 2px 0;
+}
+
+.hints-container::before {
+    content: "PETUNJUK HURUF";
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    background: #fff;
+    color: #000;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    border-radius: 6px;
+    border: 2px solid #000;
+}
+
+.letters-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 0;
+    min-height: 40px;
+}
+
+.letter-box {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #000;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 900;
+    background: #f8f8f8;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+}
+
+.letter-box.revealed {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+    transform: scale(1.05);
+    box-shadow: 0 3px 0 rgba(0,0,0,0.3);
+}
+
+.letter-box.empty {
+    border-color: #ddd;
+    background: #f0f0f0;
+    box-shadow: none;
+}
+
+/* === ANSWER INPUT === */
+.answer-container {
+    position: relative;
+    flex-shrink: 0;
+    margin: 2px 0;
+}
+
+.answer-container::before {
+    content: "JAWABAN";
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    background: #fff;
+    color: #000;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    border-radius: 6px;
+    border: 2px solid #000;
+    z-index: 1;
+}
+
+#jawaban {
+    width: 100%;
+    padding: 14px 16px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    border: 3px solid #000;
+    border-radius: 12px;
+    background-color: #fff;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    outline: none;
+    display: block;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+    color: #000;
+}
+
+#jawaban:focus {
+    background-color: #f8f8f8;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.2), 0 0 0 3px rgba(0,0,0,0.1);
+}
+
+#jawaban::placeholder {
+    color: #999;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+/* === RESULT PANEL === */
+.result-panel {
+    background-color: #fff;
+    border: 3px solid #000;
+    border-radius: 12px;
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+    min-height: 80px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+    margin: 2px 0;
+    position: relative;
+}
+
+.result-panel::before {
+    content: "HASIL";
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    background: #fff;
+    color: #000;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    border-radius: 6px;
+    border: 2px solid #000;
+}
+
+.result-title {
+    font-size: 16px;
+    font-weight: 900;
+    margin-bottom: 2px;
+    color: #000;
+    line-height: 1.2;
+}
+
+.result-message {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    line-height: 1.3;
+}
+
+.result-answer {
+    font-size: 14px;
+    font-weight: 800;
+    color: #000;
+    background: #f8f8f8;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 2px solid #000;
+    margin-top: 4px;
+    letter-spacing: 0.8px;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+}
+
+/* === BUTTONS === */
+.buttons-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.btn {
+    padding: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.3);
+}
+
+.btn-primary {
+    background: #000;
+    color: #fff;
+    border: 2px solid #000;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #333;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.btn-primary:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.3);
+}
+
+.btn-secondary {
+    background: #fff;
+    color: #000;
+    border: 3px solid #000;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #000;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.btn-secondary:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.3);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+}
+
+/* === LOADING === */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 100%;
+    min-height: 60px;
+}
+
+.loading-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: #666;
+    text-align: center;
+}
+
+.loading-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.loading-dots span {
+    width: 8px;
+    height: 8px;
+    background: #000;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* === DESKTOP LAYOUT - FIT TANPA SCROLL === */
+@media (min-width: 768px) {
+    body {
+        align-items: center;
+        justify-content: center;
+        background: #000;
+    }
+
+    .game-container {
+        max-width: 800px;
+        max-height: 90vh;
+        border-radius: 20px;
+        border: 4px solid #000;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .game-content {
+        padding: 20px;
+        gap: 12px;
+    }
+
+    .header {
+        padding: 14px 18px;
+        border-radius: 16px;
+        min-height: 70px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+    }
+
+    .header-help {
+        padding: 10px 18px;
+        min-width: 110px;
+        font-size: 16px;
+    }
+
+    .help-icon {
+        font-size: 18px;
+    }
+
+    .help-count {
+        font-size: 18px;
+    }
+
+    .stats-bar {
+        gap: 10px;
+        min-height: 70px;
+    }
+
+    .stat-item {
+        padding: 12px 10px;
+        border-radius: 12px;
+    }
+
+    .stat-label {
+        font-size: 11px;
+    }
+
+    .stat-value {
+        font-size: 22px;
+    }
+
+    .question-box {
+        padding: 18px 16px;
+        min-height: 100px;
+        border-radius: 14px;
+    }
+
+    .question-box::before {
+        left: 20px;
+        padding: 4px 16px;
+        font-size: 12px;
+        top: -12px;
+    }
+
+    #soal, .question-text {
+        font-size: 18px;
+    }
+
+    .hints-container {
+        padding: 16px 14px;
+        border-radius: 14px;
+    }
+
+    .hints-container::before {
+        left: 20px;
+        padding: 4px 16px;
+        font-size: 12px;
+        top: -12px;
+    }
+
+    .letters-grid {
+        gap: 8px;
+        padding: 12px 0;
+    }
+
+    .letter-box {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+
+    .answer-container::before {
+        left: 20px;
+        padding: 4px 16px;
+        font-size: 12px;
+        top: -12px;
+    }
+
+    #jawaban {
+        padding: 16px 18px;
+        font-size: 18px;
+        border-radius: 14px;
+    }
+
+    .result-panel {
+        padding: 16px 14px;
+        border-radius: 14px;
+        min-height: 90px;
+    }
+
+    .result-panel::before {
+        left: 20px;
+        padding: 4px 16px;
+        font-size: 12px;
+        top: -12px;
+    }
+
+    .result-title {
+        font-size: 18px;
+    }
+
+    .result-message {
+        font-size: 14px;
+    }
+
+    .result-answer {
+        font-size: 16px;
+        padding: 10px 18px;
+    }
+
+    .buttons-container {
+        gap: 12px;
+    }
+
+    .btn {
+        padding: 16px;
+        font-size: 16px;
+        border-radius: 14px;
+        min-height: 55px;
+    }
+}
+
+/* === LAYOUT TINGGI vs LEBAR === */
+@media (max-height: 700px) {
+    .game-content {
+        gap: 6px;
+    }
+    
+    .header {
+        padding: 8px 12px;
+        min-height: 50px;
+    }
+    
+    .stats-bar {
+        min-height: 50px;
+    }
+    
+    .question-box,
+    .hints-container,
+    .answer-container,
+    .result-panel {
+        padding: 10px;
+        min-height: 70px;
+    }
+    
+    .buttons-container {
+        min-height: 45px;
+    }
+    
+    .btn {
+        padding: 10px;
+        min-height: 40px;
+    }
+}
+
+/* === ANIMATIONS === */
+@keyframes pulse {
+    0%, 100% { transform: scale(0.8); opacity: 0.5; }
+    50% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes revealLetter {
+    0% { transform: scale(0.3) rotate(-90deg); opacity: 0; }
+    70% { transform: scale(1.1) rotate(10deg); }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+.letter-box.revealed {
+    animation: revealLetter 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, -40%); }
+    15% { opacity: 1; transform: translate(-50%, -50%); }
+    85% { opacity: 1; transform: translate(-50%, -50%); }
+    100% { opacity: 0; transform: translate(-50%, -60%); }
+}
